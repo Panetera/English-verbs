@@ -45,18 +45,18 @@
   <script>
     const verbs = {
       beginner: [
-        { infinitive: 'be', translation: 'ser/estar', options: ['was/were', 'been', 'being', 'be'], correct: 'was/were', image: 'https://example.com/be.jpg' },
-        { infinitive: 'begin', translation: 'empezar', options: ['began', 'begun', 'began/begun', 'begin'], correct: 'began', image: 'https://example.com/begin.jpg' },
+        { infinitive: 'be', translation: 'ser/estar', options: ['was/were', 'been', 'being', 'be'], correct: 'was/were', image: 'https://via.placeholder.com/200' },
+        { infinitive: 'begin', translation: 'empezar', options: ['began', 'begun', 'began/begun', 'begin'], correct: 'began', image: 'https://via.placeholder.com/200' },
         // Añadir más verbos aquí
       ],
       intermediate: [
-        { infinitive: 'break', translation: 'romper', options: ['broke', 'broken', 'breaking', 'break'], correct: 'broke', image: 'https://example.com/break.jpg' },
-        { infinitive: 'bring', translation: 'traer', options: ['brought', 'bringing', 'bringed', 'bring'], correct: 'brought', image: 'https://example.com/bring.jpg' },
+        { infinitive: 'break', translation: 'romper', options: ['broke', 'broken', 'breaking', 'break'], correct: 'broke', image: 'https://via.placeholder.com/200' },
+        { infinitive: 'bring', translation: 'traer', options: ['brought', 'bringing', 'bringed', 'bring'], correct: 'brought', image: 'https://via.placeholder.com/200' },
         // Añadir más verbos aquí
       ],
       advanced: [
-        { infinitive: 'breed', translation: 'criar', options: ['bred', 'breeding', 'breed', 'brought'], correct: 'bred', image: 'https://example.com/breed.jpg' },
-        { infinitive: 'creep', translation: 'arrastrarse', options: ['crept', 'creeping', 'creeped', 'creep'], correct: 'crept', image: 'https://example.com/creep.jpg' },
+        { infinitive: 'breed', translation: 'criar', options: ['bred', 'breeding', 'breed', 'brought'], correct: 'bred', image: 'https://via.placeholder.com/200' },
+        { infinitive: 'creep', translation: 'arrastrarse', options: ['crept', 'creeping', 'creeped', 'creep'], correct: 'crept', image: 'https://via.placeholder.com/200' },
         // Añadir más verbos aquí
       ]
     };
@@ -85,7 +85,7 @@
         endGame();
         return;
       }
-      const verb = verbs[currentLevel][currentRound];
+      const verb = verbs[currentLevel][currentRound % verbs[currentLevel].length];
       document.getElementById('verb').textContent = verb.infinitive;
       document.getElementById('image').src = verb.image;
       document.getElementById('translation').textContent = verb.translation;

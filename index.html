@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Verbos Irregulares</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .hidden { display: none; }
+    .shown { display: block; }
+    .right { color: green; }
+    .wrong { color: red; }
+  </style>
+</head>
+<body class="bg-blue-100 flex justify-center items-center min-h-screen">
+  <div class="w-full max-w-md p-4 bg-white rounded-lg shadow-lg">
+    <h1 class="text-2xl font-bold text-center mb-4">Juego de Verbos Irregulares</h1>
+    <div id="start-screen" class="shown">
+      <p class="text-lg text-center mb-4">Selecciona tu nivel:</p>
+      <div class="flex justify-around mb-4">
+        <button class="btn-level bg-blue-500 text-white px-4 py-2 rounded" data-level="beginner">Principiante</button>
+        <button class="btn-level bg-green-500 text-white px-4 py-2 rounded" data-level="intermediate">Intermedio</button>
+        <button class="btn-level bg-red-500 text-white px-4 py-2 rounded" data-level="advanced">Avanzado</button>
+      </div>
+    </div>
+    <div id="game-screen" class="hidden">
+      <div class="text-center mb-4">
+        <h2 id="verb" class="text-2xl font-semibold"></h2>
+        <img id="image" class="mx-auto my-4" src="" alt="Imagen del verbo" width="200">
+        <p id="translation" class="text-lg"></p>
+      </div>
+      <div id="options" class="flex flex-col space-y-2"></div>
+      <p id="feedback" class="text-center mt-4"></p>
+      <div class="flex justify-between mt-4">
+        <p id="score" class="text-lg font-bold">Puntuación: 0</p>
+        <p id="round" class="text-lg font-bold">Ronda: 1/10</p>
+      </div>
+    </div>
+    <div id="end-screen" class="hidden text-center">
+      <h2 class="text-2xl font-bold mb-4">Juego Terminado</h2>
+      <p id="final-score" class="text-lg mb-4"></p>
+      <button id="restart-btn" class="bg-blue-500 text-white px-4 py-2 rounded">Jugar de Nuevo</button>
+    </div>
+  </div>
+  <script>
+    const verbs = {
+      beginner: [
+        { infinitive: 'be', translation: 'ser/estar', options: ['was/were', 'been', 'being', 'be'], correct: 'was/were', image: 'https://example.com/be.jpg' },
+        { infinitive: 'begin', translation: 'empezar', options: ['began', 'begun', 'began/begun', 'begin'], correct: 'began', image: 'https://example.com/begin.jpg' },
+        // Añadir más verbos aquí
+      ],
+      intermediate: [
+        { infinitive: 'break', translation: 'romper', options: ['broke', 'broken', 'breaking', 'break'], correct: 'broke', image: 'https://example.com/break.jpg' },
+        { infinitive: 'bring', translation: 'traer', options: ['brought', 'bringing', 'bringed', 'bring'], correct: 'brought', image: 'https://example.com/bring.jpg' },
+        // Añadir más verbos aquí
+      ],
+      advanced: [
+        { infinitive: 'breed', translation: 'criar', options: ['bred', 'breeding', 'breed', 'brought'], correct: 'bred', image: 'https://example.com/breed.jpg' },
+        { infinitive: 'creep', translation: 'arrastrarse', options: ['crept', 'creeping', 'creeped', 'creep'], correct: 'crept', image: 'https://example.com/creep.jpg' },
+        // Añadir más verbos aquí
+      ]
+    };
+
+    let currentLevel = 'beginner';
+    let currentRound = 0;
+    let score = 0;
+
+    document.querySelectorAll('.btn-level').forEach(button => {
+      button.addEventListener('click', () => {
+        currentLevel = button.dataset.level;
+        startGame();
+      });
+    });
+
+    function startGame() {
+      document.getElementById('start-screen').classList.add('hidden');
+      document.getElementById('game-screen').classList.remove('hidden');
+      currentRound = 0;
+      score = 0;
+      nextRound();
+    }
+
+    function nextRound() {
+      if (currentRound >= 10) {
+        endGame();
+        return;
+      }
+      const verb = verbs[currentLevel][currentRound];
+      document.getElementById('verb').textContent = verb.infinitive;
+      document.getElementById('image').src = verb.image;
+      document.getElementById('translation').textContent = verb.translation;
+      const optionsContainer = document.getElementById('options');
+      optionsContainer.innerHTML = '';
+      verb.options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.classList.add('option-btn', 'bg-gray-300', 'px-4', 'py-2', 'rounded');
+        button.addEventListener('click', () => checkAnswer(option, verb.correct));
+        optionsContainer.appendChild(button);
+      });
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('score').textContent = `Puntuación: ${score}`;
+      document.getElementById('round').textContent = `Ronda: ${currentRound + 1}/10`;
+      currentRound++;
+    }
+
+    function checkAnswer(selected, correct) {
+      if (selected === correct) {
+        score++;
+        document.getElementById('feedback').textContent = '¡Correcto!';
+        document.getElementById('feedback').classList.add('right');
+        document.getElementById('feedback').classList.remove('wrong');
+      } else {
+        document.getElementById('feedback').textContent = '😢 ¡Incorrecto!';
+        document.getElementById('feedback').classList.add('wrong');
+        document.getElementById('feedback').classList.remove('right');
+      }
+      setTimeout(nextRound, 1000);
+    }
+
+    function endGame() {
+      document.getElementById('game-screen').classList.add('hidden');
+      document.getElementById('end-screen').classList.remove('hidden');
+      document.getElementById('final-score').textContent = `Tu puntuación final es: ${score}`;
+      const finalMessage = score > 7 ? '¡Fantástico trabajo! 😊' : score > 4 ? '¡Buen esfuerzo! 😃' : '¡Sigue practicando! 😐';
+      document.getElementById('final-score').textContent += ` ${finalMessage}`;
+    }
+
+    document.getElementById('restart-btn').addEventListener('click', () => {
+      document.getElementById('end-screen').classList.add('hidden');
+      document.getElementById('start-screen').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>

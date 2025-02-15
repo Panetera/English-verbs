@@ -59,7 +59,6 @@
         { base: 'dream', past: 'dreamt', spanish: 'soñar', image: '🌙' },
         { base: 'drive', past: 'drove', spanish: 'conducir', image: '🚗' },
         { base: 'fall', past: 'fell', spanish: 'caer', image: '🍁' },
-        { base: 'feel', past: 'felt', spanish: 'sentir', image: '💓' },
         { base: 'forget', past: 'forgot', spanish: 'olvidar', image: '❓' },
         { base: 'hear', past: 'heard', spanish: 'escuchar', image: '👂' },
         { base: 'hold', past: 'held', spanish: 'sostener', image: '👐' },
@@ -71,7 +70,8 @@
         { base: 'sit', past: 'sat', spanish: 'sentarse', image: '🪑' },
         { base: 'sleep', past: 'slept', spanish: 'dormir', image: '😴' },
         { base: 'stand', past: 'stood', spanish: 'estar de pie', image: '🧍' },
-        { base: 'wear', past: 'wore', spanish: 'vestir', image: '👗' }
+        { base: 'wear', past: 'wore', spanish: 'vestir', image: '👗' },
+        { base: 'freeze', past: 'froze', spanish: 'congelar', image: '❄️' }
       ],
       advanced: [
         { base: 'arise', past: 'arose', spanish: 'surgir', image: '🌅' },
@@ -124,35 +124,43 @@
       usedVerbs.push(verb.base);
       document.getElementById('verb').textContent = `¿Cuál es el pasado simple de "${verb.base}" (${verb.spanish})?`;
       document.getElementById('image').textContent = verb.image;
-      let options = [verb];
+
+      // Generar opciones de respuesta
+      let options = [];
+      options.push(verb.past); // Respuesta correcta
+
+      // Añadir tres respuestas incorrectas
+      let incorrectVerbs = currentLevel.filter(v => v.base !== verb.base);
       while (options.length < 4) {
-        let option = currentLevel[Math.floor(Math.random() * currentLevel.length)];
-        if (!options.includes(option)) {
-          options.push(option);
+        let incorrectVerb = incorrectVerbs[Math.floor(Math.random() * incorrectVerbs.length)].past;
+        if (!options.includes(incorrectVerb)) {
+          options.push(incorrectVerb);
         }
       }
+
+      // Mezclar las opciones
       options.sort(() => Math.random() - 0.5);
       let optionsList = document.getElementById('options');
       optionsList.innerHTML = '';
       options.forEach(option => {
         let li = document.createElement('li');
         let button = document.createElement('button');
-        button.textContent = option.past;
+        button.textContent = option; // Mostrar el pasado del verbo
         button.className = 'w-full bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded';
-        button.onclick = () => checkAnswer(verb, option);
+        button.onclick = () => checkAnswer(verb.past, option);
         li.appendChild(button);
         optionsList.appendChild(li);
       });
     }
 
-    function checkAnswer(correctVerb, selectedVerb) {
+    function checkAnswer(correctPast, selectedPast) {
       let feedback = document.getElementById('feedback');
-      if (correctVerb.past === selectedVerb.past) {
+      if (correctPast === selectedPast) {
         feedback.textContent = '¡Correcto! 🎉';
         feedback.className = 'text-green-600 text-center text-xl mt-4';
         score++;
       } else {
-        feedback.textContent = `Incorrecto 😢 La respuesta correcta es "${correctVerb.past}"`;
+        feedback.textContent = `Incorrecto 😢 La respuesta correcta es "${correctPast}"`;
         feedback.className = 'text-red-600 text-center text-xl mt-4';
       }
       setTimeout(nextRound, 2000);

@@ -30,70 +30,70 @@
   <script>
     const verbs = {
       beginner: [
-        { english: 'go', spanish: 'ir', image: '🚶' },
-        { english: 'see', spanish: 'ver', image: '👁️' },
-        { english: 'eat', spanish: 'comer', image: '🍎' },
-        { english: 'drink', spanish: 'beber', image: '🥤' },
-        { english: 'speak', spanish: 'hablar', image: '🗣️' },
-        { english: 'run', spanish: 'correr', image: '🏃' },
-        { english: 'write', spanish: 'escribir', image: '✍️' },
-        { english: 'read', spanish: 'leer', image: '📖' },
-        { english: 'come', spanish: 'venir', image: '🚪' },
-        { english: 'take', spanish: 'tomar', image: '✋' },
-        { english: 'give', spanish: 'dar', image: '🎁' },
-        { english: 'find', spanish: 'encontrar', image: '🔍' },
-        { english: 'think', spanish: 'pensar', image: '💭' },
-        { english: 'know', spanish: 'saber', image: '🧠' },
-        { english: 'make', spanish: 'hacer', image: '⚒️' },
-        { english: 'say', spanish: 'decir', image: '🗨️' },
-        { english: 'get', spanish: 'obtener', image: '🎫' },
-        { english: 'feel', spanish: 'sentir', image: '💓' },
-        { english: 'leave', spanish: 'dejar', image: '🚪' },
-        { english: 'begin', spanish: 'empezar', image: '🔄' }
+        { base: 'go', past: 'went', spanish: 'ir', image: '🚶' },
+        { base: 'see', past: 'saw', spanish: 'ver', image: '👁️' },
+        { base: 'eat', past: 'ate', spanish: 'comer', image: '🍎' },
+        { base: 'drink', past: 'drank', spanish: 'beber', image: '🥤' },
+        { base: 'speak', past: 'spoke', spanish: 'hablar', image: '🗣️' },
+        { base: 'run', past: 'ran', spanish: 'correr', image: '🏃' },
+        { base: 'write', past: 'wrote', spanish: 'escribir', image: '✍️' },
+        { base: 'read', past: 'read', spanish: 'leer', image: '📖' },
+        { base: 'come', past: 'came', spanish: 'venir', image: '🚪' },
+        { base: 'take', past: 'took', spanish: 'tomar', image: '✋' },
+        { base: 'give', past: 'gave', spanish: 'dar', image: '🎁' },
+        { base: 'find', past: 'found', spanish: 'encontrar', image: '🔍' },
+        { base: 'think', past: 'thought', spanish: 'pensar', image: '💭' },
+        { base: 'know', past: 'knew', spanish: 'saber', image: '🧠' },
+        { base: 'make', past: 'made', spanish: 'hacer', image: '⚒️' },
+        { base: 'say', past: 'said', spanish: 'decir', image: '🗨️' },
+        { base: 'get', past: 'got', spanish: 'obtener', image: '🎫' },
+        { base: 'feel', past: 'felt', spanish: 'sentir', image: '💓' },
+        { base: 'leave', past: 'left', spanish: 'dejar', image: '🚪' },
+        { base: 'begin', past: 'began', spanish: 'empezar', image: '🔄' }
       ],
       intermediate: [
-        { english: 'build', spanish: 'construir', image: '🏗️' },
-        { english: 'buy', spanish: 'comprar', image: '🛍️' },
-        { english: 'catch', spanish: 'atrapar', image: '🎣' },
-        { english: 'choose', spanish: 'elegir', image: '🎲' },
-        { english: 'dream', spanish: 'soñar', image: '🌙' },
-        { english: 'drive', spanish: 'conducir', image: '🚗' },
-        { english: 'fall', spanish: 'caer', image: '🍁' },
-        { english: 'feel', spanish: 'sentir', image: '💓' },
-        { english: 'forget', spanish: 'olvidar', image: '❓' },
-        { english: 'hear', spanish: 'escuchar', image: '👂' },
-        { english: 'hold', spanish: 'sostener', image: '👐' },
-        { english: 'lose', spanish: 'perder', image: '🔑' },
-        { english: 'meet', spanish: 'conocer', image: '🤝' },
-        { english: 'pay', spanish: 'pagar', image: '💰' },
-        { english: 'sell', spanish: 'vender', image: '🏷️' },
-        { english: 'send', spanish: 'enviar', image: '✉️' },
-        { english: 'sit', spanish: 'sentarse', image: '🪑' },
-        { english: 'sleep', spanish: 'dormir', image: '😴' },
-        { english: 'stand', spanish: 'estar de pie', image: '🧍' },
-        { english: 'wear', spanish: 'vestir', image: '👗' }
+        { base: 'build', past: 'built', spanish: 'construir', image: '🏗️' },
+        { base: 'buy', past: 'bought', spanish: 'comprar', image: '🛍️' },
+        { base: 'catch', past: 'caught', spanish: 'atrapar', image: '🎣' },
+        { base: 'choose', past: 'chose', spanish: 'elegir', image: '🎲' },
+        { base: 'dream', past: 'dreamt', spanish: 'soñar', image: '🌙' },
+        { base: 'drive', past: 'drove', spanish: 'conducir', image: '🚗' },
+        { base: 'fall', past: 'fell', spanish: 'caer', image: '🍁' },
+        { base: 'feel', past: 'felt', spanish: 'sentir', image: '💓' },
+        { base: 'forget', past: 'forgot', spanish: 'olvidar', image: '❓' },
+        { base: 'hear', past: 'heard', spanish: 'escuchar', image: '👂' },
+        { base: 'hold', past: 'held', spanish: 'sostener', image: '👐' },
+        { base: 'lose', past: 'lost', spanish: 'perder', image: '🔑' },
+        { base: 'meet', past: 'met', spanish: 'conocer', image: '🤝' },
+        { base: 'pay', past: 'paid', spanish: 'pagar', image: '💰' },
+        { base: 'sell', past: 'sold', spanish: 'vender', image: '🏷️' },
+        { base: 'send', past: 'sent', spanish: 'enviar', image: '✉️' },
+        { base: 'sit', past: 'sat', spanish: 'sentarse', image: '🪑' },
+        { base: 'sleep', past: 'slept', spanish: 'dormir', image: '😴' },
+        { base: 'stand', past: 'stood', spanish: 'estar de pie', image: '🧍' },
+        { base: 'wear', past: 'wore', spanish: 'vestir', image: '👗' }
       ],
       advanced: [
-        { english: 'arise', spanish: 'surgir', image: '🌅' },
-        { english: 'bet', spanish: 'apostar', image: '🎰' },
-        { english: 'bleed', spanish: 'sangrar', image: '🩸' },
-        { english: 'breed', spanish: 'criar', image: '🐣' },
-        { english: 'broadcast', spanish: 'transmitir', image: '📡' },
-        { english: 'dig', spanish: 'cavar', image: '⛏️' },
-        { english: 'kneel', spanish: 'arrodillarse', image: '🧎' },
-        { english: 'leap', spanish: 'brincar', image: '🐇' },
-        { english: 'mow', spanish: 'cortar', image: '🌾' },
-        { english: 'shrink', spanish: 'encoger', image: '📉' },
-        { english: 'sow', spanish: 'sembrar', image: '🌱' },
-        { english: 'sting', spanish: 'picar', image: '🐝' },
-        { english: 'sweep', spanish: 'barrer', image: '🧹' },
-        { english: 'weep', spanish: 'llorar', image: '😭' },
-        { english: 'wring', spanish: 'torcer', image: '🌀' },
-        { english: 'foresee', spanish: 'prever', image: '🔮' },
-        { english: 'withstand', spanish: 'resistir', image: '🛡️' },
-        { english: 'overcome', spanish: 'superar', image: '🏆' },
-        { english: 'interweave', spanish: 'entretejer', image: '🧶' },
-        { english: 'uphold', spanish: 'sostener', image: '✊' }
+        { base: 'arise', past: 'arose', spanish: 'surgir', image: '🌅' },
+        { base: 'bet', past: 'bet', spanish: 'apostar', image: '🎰' },
+        { base: 'bleed', past: 'bled', spanish: 'sangrar', image: '🩸' },
+        { base: 'breed', past: 'bred', spanish: 'criar', image: '🐣' },
+        { base: 'broadcast', past: 'broadcast', spanish: 'transmitir', image: '📡' },
+        { base: 'dig', past: 'dug', spanish: 'cavar', image: '⛏️' },
+        { base: 'kneel', past: 'knelt', spanish: 'arrodillarse', image: '🧎' },
+        { base: 'leap', past: 'leapt', spanish: 'brincar', image: '🐇' },
+        { base: 'mow', past: 'mowed', spanish: 'cortar', image: '🌾' },
+        { base: 'shrink', past: 'shrank', spanish: 'encoger', image: '📉' },
+        { base: 'sow', past: 'sowed', spanish: 'sembrar', image: '🌱' },
+        { base: 'sting', past: 'stung', spanish: 'picar', image: '🐝' },
+        { base: 'sweep', past: 'swept', spanish: 'barrer', image: '🧹' },
+        { base: 'weep', past: 'wept', spanish: 'llorar', image: '😭' },
+        { base: 'wring', past: 'wrung', spanish: 'torcer', image: '🌀' },
+        { base: 'foresee', past: 'foresaw', spanish: 'prever', image: '🔮' },
+        { base: 'withstand', past: 'withstood', spanish: 'resistir', image: '🛡️' },
+        { base: 'overcome', past: 'overcame', spanish: 'superar', image: '🏆' },
+        { base: 'interweave', past: 'interwove', spanish: 'entretejer', image: '🧶' },
+        { base: 'uphold', past: 'upheld', spanish: 'sostener', image: '✊' }
       ]
     };
 
@@ -119,10 +119,10 @@
       }
       rounds++;
       document.getElementById('feedback').textContent = '';
-      let remainingVerbs = currentLevel.filter(verb => !usedVerbs.includes(verb.english));
+      let remainingVerbs = currentLevel.filter(verb => !usedVerbs.includes(verb.base));
       let verb = remainingVerbs[Math.floor(Math.random() * remainingVerbs.length)];
-      usedVerbs.push(verb.english);
-      document.getElementById('verb').textContent = `¿Cuál es el pasado simple de "${verb.english}" (${verb.spanish})?`;
+      usedVerbs.push(verb.base);
+      document.getElementById('verb').textContent = `¿Cuál es el pasado simple de "${verb.base}" (${verb.spanish})?`;
       document.getElementById('image').textContent = verb.image;
       let options = [verb];
       while (options.length < 4) {
@@ -137,7 +137,7 @@
       options.forEach(option => {
         let li = document.createElement('li');
         let button = document.createElement('button');
-        button.textContent = option.english + ' / ' + option.spanish;
+        button.textContent = option.past;
         button.className = 'w-full bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded';
         button.onclick = () => checkAnswer(verb, option);
         li.appendChild(button);
@@ -147,12 +147,12 @@
 
     function checkAnswer(correctVerb, selectedVerb) {
       let feedback = document.getElementById('feedback');
-      if (correctVerb === selectedVerb) {
+      if (correctVerb.past === selectedVerb.past) {
         feedback.textContent = '¡Correcto! 🎉';
         feedback.className = 'text-green-600 text-center text-xl mt-4';
         score++;
       } else {
-        feedback.textContent = `Incorrecto 😢 La respuesta correcta es "${correctVerb.english}"`;
+        feedback.textContent = `Incorrecto 😢 La respuesta correcta es "${correctVerb.past}"`;
         feedback.className = 'text-red-600 text-center text-xl mt-4';
       }
       setTimeout(nextRound, 2000);
@@ -184,3 +184,4 @@
   </script>
 </body>
 </html>
+

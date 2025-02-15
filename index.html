@@ -2,134 +2,185 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Juego de Verbos Irregulares</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    .hidden { display: none; }
-    .shown { display: block; }
-    .right { color: green; }
-    .wrong { color: red; }
-  </style>
+  <title>Juego de Verbos Irregulares en Inglés</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-blue-100 flex justify-center items-center min-h-screen">
-  <div class="w-full max-w-md p-4 bg-white rounded-lg shadow-lg">
-    <h1 class="text-2xl font-bold text-center mb-4">Juego de Verbos Irregulares</h1>
-    <div id="start-screen" class="shown">
-      <p class="text-lg text-center mb-4">Selecciona tu nivel:</p>
-      <div class="flex justify-around mb-4">
-        <button class="btn-level bg-blue-500 text-white px-4 py-2 rounded" data-level="beginner">Principiante</button>
-        <button class="btn-level bg-green-500 text-white px-4 py-2 rounded" data-level="intermediate">Intermedio</button>
-        <button class="btn-level bg-red-500 text-white px-4 py-2 rounded" data-level="advanced">Avanzado</button>
-      </div>
+<body class="bg-blue-50 flex items-center justify-center min-h-screen">
+  <div id="game" class="w-full max-w-md p-6 bg-white rounded shadow-lg">
+    <h1 class="text-2xl font-bold text-center mb-4">Repasa los Verbos Irregulares</h1>
+    <div id="level-selection" class="text-center">
+      <p class="mb-2">Elige tu nivel:</p>
+      <button onclick="startGame('beginner')" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2">Principiante</button>
+      <button onclick="startGame('intermediate')" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded mr-2">Intermedio</button>
+      <button onclick="startGame('advanced')" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Avanzado</button>
     </div>
-    <div id="game-screen" class="hidden">
-      <div class="text-center mb-4">
-        <h2 id="verb" class="text-2xl font-semibold"></h2>
-        <img id="image" class="mx-auto my-4" src="" alt="Imagen del verbo" width="200">
-        <p id="translation" class="text-lg"></p>
-      </div>
-      <div id="options" class="flex flex-col space-y-2"></div>
-      <p id="feedback" class="text-center mt-4"></p>
-      <div class="flex justify-between mt-4">
-        <p id="score" class="text-lg font-bold">Puntuación: 0</p>
-        <p id="round" class="text-lg font-bold">Ronda: 1/10</p>
-      </div>
+    <div id="quiz" class="hidden">
+      <div id="image" class="text-center text-6xl mb-4"></div>
+      <p id="verb" class="text-xl text-center font-semibold mb-2"></p>
+      <ul id="options" class="space-y-2"></ul>
+      <p id="feedback" class="text-center text-xl mt-4"></p>
     </div>
-    <div id="end-screen" class="hidden text-center">
-      <h2 class="text-2xl font-bold mb-4">Juego Terminado</h2>
-      <p id="final-score" class="text-lg mb-4"></p>
-      <button id="restart-btn" class="bg-blue-500 text-white px-4 py-2 rounded">Jugar de Nuevo</button>
+    <div id="scoreboard" class="hidden text-center">
+      <p id="final-score" class="text-xl font-semibold mb-2"></p>
+      <p id="final-message" class="text-4xl mb-4"></p>
+      <button onclick="restartGame()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Jugar de Nuevo</button>
     </div>
   </div>
+
   <script>
     const verbs = {
       beginner: [
-        { infinitive: 'be', translation: 'ser/estar', options: ['was/were', 'been', 'being', 'be'], correct: 'was/were', image: 'https://via.placeholder.com/200' },
-        { infinitive: 'begin', translation: 'empezar', options: ['began', 'begun', 'began/begun', 'begin'], correct: 'began', image: 'https://via.placeholder.com/200' },
-        // Añadir más verbos aquí
+        { english: 'go', spanish: 'ir', image: '🚶' },
+        { english: 'see', spanish: 'ver', image: '👁️' },
+        { english: 'eat', spanish: 'comer', image: '🍎' },
+        { english: 'drink', spanish: 'beber', image: '🥤' },
+        { english: 'speak', spanish: 'hablar', image: '🗣️' },
+        { english: 'run', spanish: 'correr', image: '🏃' },
+        { english: 'write', spanish: 'escribir', image: '✍️' },
+        { english: 'read', spanish: 'leer', image: '📖' },
+        { english: 'come', spanish: 'venir', image: '🚪' },
+        { english: 'take', spanish: 'tomar', image: '✋' },
+        { english: 'give', spanish: 'dar', image: '🎁' },
+        { english: 'find', spanish: 'encontrar', image: '🔍' },
+        { english: 'think', spanish: 'pensar', image: '💭' },
+        { english: 'know', spanish: 'saber', image: '🧠' },
+        { english: 'make', spanish: 'hacer', image: '⚒️' },
+        { english: 'say', spanish: 'decir', image: '🗨️' },
+        { english: 'get', spanish: 'obtener', image: '🎫' },
+        { english: 'feel', spanish: 'sentir', image: '💓' },
+        { english: 'leave', spanish: 'dejar', image: '🚪' },
+        { english: 'begin', spanish: 'empezar', image: '🔄' }
       ],
       intermediate: [
-        { infinitive: 'break', translation: 'romper', options: ['broke', 'broken', 'breaking', 'break'], correct: 'broke', image: 'https://via.placeholder.com/200' },
-        { infinitive: 'bring', translation: 'traer', options: ['brought', 'bringing', 'bringed', 'bring'], correct: 'brought', image: 'https://via.placeholder.com/200' },
-        // Añadir más verbos aquí
+        { english: 'build', spanish: 'construir', image: '🏗️' },
+        { english: 'buy', spanish: 'comprar', image: '🛍️' },
+        { english: 'catch', spanish: 'atrapar', image: '🎣' },
+        { english: 'choose', spanish: 'elegir', image: '🎲' },
+        { english: 'dream', spanish: 'soñar', image: '🌙' },
+        { english: 'drive', spanish: 'conducir', image: '🚗' },
+        { english: 'fall', spanish: 'caer', image: '🍁' },
+        { english: 'feel', spanish: 'sentir', image: '💓' },
+        { english: 'forget', spanish: 'olvidar', image: '❓' },
+        { english: 'hear', spanish: 'escuchar', image: '👂' },
+        { english: 'hold', spanish: 'sostener', image: '👐' },
+        { english: 'lose', spanish: 'perder', image: '🔑' },
+        { english: 'meet', spanish: 'conocer', image: '🤝' },
+        { english: 'pay', spanish: 'pagar', image: '💰' },
+        { english: 'sell', spanish: 'vender', image: '🏷️' },
+        { english: 'send', spanish: 'enviar', image: '✉️' },
+        { english: 'sit', spanish: 'sentarse', image: '🪑' },
+        { english: 'sleep', spanish: 'dormir', image: '😴' },
+        { english: 'stand', spanish: 'estar de pie', image: '🧍' },
+        { english: 'wear', spanish: 'vestir', image: '👗' }
       ],
       advanced: [
-        { infinitive: 'breed', translation: 'criar', options: ['bred', 'breeding', 'breed', 'brought'], correct: 'bred', image: 'https://via.placeholder.com/200' },
-        { infinitive: 'creep', translation: 'arrastrarse', options: ['crept', 'creeping', 'creeped', 'creep'], correct: 'crept', image: 'https://via.placeholder.com/200' },
-        // Añadir más verbos aquí
+        { english: 'arise', spanish: 'surgir', image: '🌅' },
+        { english: 'bet', spanish: 'apostar', image: '🎰' },
+        { english: 'bleed', spanish: 'sangrar', image: '🩸' },
+        { english: 'breed', spanish: 'criar', image: '🐣' },
+        { english: 'broadcast', spanish: 'transmitir', image: '📡' },
+        { english: 'dig', spanish: 'cavar', image: '⛏️' },
+        { english: 'kneel', spanish: 'arrodillarse', image: '🧎' },
+        { english: 'leap', spanish: 'brincar', image: '🐇' },
+        { english: 'mow', spanish: 'cortar', image: '🌾' },
+        { english: 'shrink', spanish: 'encoger', image: '📉' },
+        { english: 'sow', spanish: 'sembrar', image: '🌱' },
+        { english: 'sting', spanish: 'picar', image: '🐝' },
+        { english: 'sweep', spanish: 'barrer', image: '🧹' },
+        { english: 'weep', spanish: 'llorar', image: '😭' },
+        { english: 'wring', spanish: 'torcer', image: '🌀' },
+        { english: 'foresee', spanish: 'prever', image: '🔮' },
+        { english: 'withstand', spanish: 'resistir', image: '🛡️' },
+        { english: 'overcome', spanish: 'superar', image: '🏆' },
+        { english: 'interweave', spanish: 'entretejer', image: '🧶' },
+        { english: 'uphold', spanish: 'sostener', image: '✊' }
       ]
     };
 
-    let currentLevel = 'beginner';
-    let currentRound = 0;
+    let currentLevel = [];
     let score = 0;
+    let rounds = 0;
+    let usedVerbs = [];
 
-    document.querySelectorAll('.btn-level').forEach(button => {
-      button.addEventListener('click', () => {
-        currentLevel = button.dataset.level;
-        startGame();
-      });
-    });
-
-    function startGame() {
-      document.getElementById('start-screen').classList.add('hidden');
-      document.getElementById('game-screen').classList.remove('hidden');
-      currentRound = 0;
+    function startGame(level) {
+      document.getElementById('level-selection').classList.add('hidden');
+      document.getElementById('quiz').classList.remove('hidden');
+      currentLevel = verbs[level];
       score = 0;
+      rounds = 0;
+      usedVerbs = [];
       nextRound();
     }
 
     function nextRound() {
-      if (currentRound >= 10) {
+      if (rounds === 10) {
         endGame();
         return;
       }
-      const verb = verbs[currentLevel][currentRound % verbs[currentLevel].length];
-      document.getElementById('verb').textContent = verb.infinitive;
-      document.getElementById('image').src = verb.image;
-      document.getElementById('translation').textContent = verb.translation;
-      const optionsContainer = document.getElementById('options');
-      optionsContainer.innerHTML = '';
-      verb.options.forEach(option => {
-        const button = document.createElement('button');
-        button.textContent = option;
-        button.classList.add('option-btn', 'bg-gray-300', 'px-4', 'py-2', 'rounded');
-        button.addEventListener('click', () => checkAnswer(option, verb.correct));
-        optionsContainer.appendChild(button);
-      });
+      rounds++;
       document.getElementById('feedback').textContent = '';
-      document.getElementById('score').textContent = `Puntuación: ${score}`;
-      document.getElementById('round').textContent = `Ronda: ${currentRound + 1}/10`;
-      currentRound++;
+      let remainingVerbs = currentLevel.filter(verb => !usedVerbs.includes(verb.english));
+      let verb = remainingVerbs[Math.floor(Math.random() * remainingVerbs.length)];
+      usedVerbs.push(verb.english);
+      document.getElementById('verb').textContent = `¿Cuál es el pasado simple de "${verb.english}" (${verb.spanish})?`;
+      document.getElementById('image').textContent = verb.image;
+      let options = [verb];
+      while (options.length < 4) {
+        let option = currentLevel[Math.floor(Math.random() * currentLevel.length)];
+        if (!options.includes(option)) {
+          options.push(option);
+        }
+      }
+      options.sort(() => Math.random() - 0.5);
+      let optionsList = document.getElementById('options');
+      optionsList.innerHTML = '';
+      options.forEach(option => {
+        let li = document.createElement('li');
+        let button = document.createElement('button');
+        button.textContent = option.english + ' / ' + option.spanish;
+        button.className = 'w-full bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded';
+        button.onclick = () => checkAnswer(verb, option);
+        li.appendChild(button);
+        optionsList.appendChild(li);
+      });
     }
 
-    function checkAnswer(selected, correct) {
-      if (selected === correct) {
+    function checkAnswer(correctVerb, selectedVerb) {
+      let feedback = document.getElementById('feedback');
+      if (correctVerb === selectedVerb) {
+        feedback.textContent = '¡Correcto! 🎉';
+        feedback.className = 'text-green-600 text-center text-xl mt-4';
         score++;
-        document.getElementById('feedback').textContent = '¡Correcto!';
-        document.getElementById('feedback').classList.add('right');
-        document.getElementById('feedback').classList.remove('wrong');
       } else {
-        document.getElementById('feedback').textContent = '😢 ¡Incorrecto!';
-        document.getElementById('feedback').classList.add('wrong');
-        document.getElementById('feedback').classList.remove('right');
+        feedback.textContent = `Incorrecto 😢 La respuesta correcta es "${correctVerb.english}"`;
+        feedback.className = 'text-red-600 text-center text-xl mt-4';
       }
-      setTimeout(nextRound, 1000);
+      setTimeout(nextRound, 2000);
     }
 
     function endGame() {
-      document.getElementById('game-screen').classList.add('hidden');
-      document.getElementById('end-screen').classList.remove('hidden');
-      document.getElementById('final-score').textContent = `Tu puntuación final es: ${score}`;
-      const finalMessage = score > 7 ? '¡Fantástico trabajo! 😊' : score > 4 ? '¡Buen esfuerzo! 😃' : '¡Sigue practicando! 😐';
-      document.getElementById('final-score').textContent += ` ${finalMessage}`;
+      document.getElementById('quiz').classList.add('hidden');
+      document.getElementById('scoreboard').classList.remove('hidden');
+      document.getElementById('final-score').textContent = `Tu puntuación final es ${score} de 10.`;
+      let message = '';
+      let emoji = '';
+      if (score <= 3) {
+        message = '¡Ánimo, sigue practicando!';
+        emoji = '😕';
+      } else if (score <= 7) {
+        message = '¡Buen trabajo!';
+        emoji = '🙂';
+      } else {
+        message = '¡Excelente, eres un maestro de los verbos irregulares!';
+        emoji = '🏆';
+      }
+      document.getElementById('final-message').textContent = `${message} ${emoji}`;
     }
 
-    document.getElementById('restart-btn').addEventListener('click', () => {
-      document.getElementById('end-screen').classList.add('hidden');
-      document.getElementById('start-screen').classList.remove('hidden');
-    });
+    function restartGame() {
+      document.getElementById('scoreboard').classList.add('hidden');
+      document.getElementById('level-selection').classList.remove('hidden');
+    }
   </script>
 </body>
 </html>
